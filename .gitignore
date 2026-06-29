@@ -1,0 +1,6 @@
+# Example project build output
+examples/**/bin/
+examples/**/obj/
+examples/**/.vs/
+examples/**/*.user
+examples/**/*.suo
