@@ -18,14 +18,41 @@ bin/
 
 include/
   bt8xxemu.h        Public emulator API header
+  bt8xxemu_inttypes.h
+                    Internal integer type definitions used by the public header
 
 lib/
   bt8xxemu.lib      Windows import library for C/C++ projects
 
 examples/
-  CSharp-BT81X/     C# WinForms example for BT81X devices
-  CSharp-BT82X/     C# WinForms example for BT82X devices
+  CSharp/
+    BT81X/          C# WinForms example for BT81X devices
+    BT82X/          C# WinForms example for BT82X devices
+    common/         Shared C# wrapper sources used by the sample projects
 ```
+
+## Supported EVE Devices
+
+The emulator package targets the EVE family including:
+
+- FT80X
+- FT81x
+- BT815/6
+- BT817/8
+- BT820
+
+The C# wrappers expose the matching emulator modes through the native enum in the shared wrapper code.
+
+## Specifying Flash or SD Card Images
+
+When creating an emulator instance, you can attach a flash image or an SD card image before launching it:
+
+- Flash image: create a `Flash` object from `FlashParameters` and assign it to `parameters.Flash`.
+  The flash parameters can point to a binary image via `DataFilePath` or provide raw bytes through `Data`.
+- SD card image (BT82x): set `parameters.SDCardFilePath` to the path of an image file before starting the emulator.
+  At runtime, BT82x devices can also use `InsertSDCardFolder(...)` to mount a folder as a virtual SD card.
+
+These options are used by the sample applications to provide default flash content and to prepare BT82x-specific storage.
 
 ## Using the Emulator in a C or C++ Project
 
@@ -59,8 +86,8 @@ The C# examples are Visual Studio/MSBuild projects targeting .NET Framework
 To run an example:
 
 1. Open one of the solution files in Visual Studio:
-   - `examples/CSharp-BT81X/BT8XXEMUCSharpDemo.sln`
-   - `examples/CSharp-BT82X/BT8XXEMUCSharpDemo.sln`
+   - `examples/CSharp/BT81X/BT8XXEMUCSharpDemo.sln`
+   - `examples/CSharp/BT82X/BT8XXEMUCSharpDemo.sln`
 2. Build the solution.
 3. Run the generated `BT8XXEMUCSharpDemo.exe`.
 
